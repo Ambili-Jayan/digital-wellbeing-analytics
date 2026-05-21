@@ -1,0 +1,158 @@
+table Fact_MentalHealthTrends
+	lineageTag: 91f622e2-43f9-4039-a5d0-5de443d2919c
+
+	column 'Source.Name'
+		dataType: string
+		lineageTag: 85ade2cb-0742-443d-b3ce-f82e0a2c076d
+		summarizeBy: none
+		sourceColumn: Source.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bdb2156d-a4d0-4586-ae8f-325f736bf650
+		summarizeBy: none
+		sourceColumn: user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 127518d2-0135-42c7-b916-ff012ec00aef
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 9084d1a4-8789-4ae4-a8c6-04c96d62739b
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		lineageTag: ce53bf23-11fe-41af-b1fb-828efb8450de
+		summarizeBy: none
+		sourceColumn: age_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: facca210-beeb-4ad0-aaa1-99b150daf92c
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: 5a26ba6f-7e06-48b6-81da-8b316fcf0808
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column anxiety_score
+		dataType: double
+		lineageTag: a6b57eb9-b46b-4c0c-82f2-fcc01cd03ae9
+		summarizeBy: sum
+		sourceColumn: anxiety_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column depression_score
+		dataType: double
+		lineageTag: bf1000cd-5743-4027-85fc-99808fa439b2
+		summarizeBy: sum
+		sourceColumn: depression_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stress_level
+		dataType: double
+		lineageTag: c3baa0db-5554-47bf-989c-8f97e40b51dd
+		summarizeBy: sum
+		sourceColumn: stress_level
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column loneliness_index
+		dataType: double
+		lineageTag: 379d01e6-67c9-4016-b398-0a16232256a6
+		summarizeBy: sum
+		sourceColumn: loneliness_index
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column therapy_access
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 69d3665e-d3b4-45b6-a7f1-85e404ec05e5
+		summarizeBy: none
+		sourceColumn: therapy_access
+
+		annotation SummarizationSetBy = Automatic
+
+	column medication_usage
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 050e967d-1724-4b1b-ace4-a6e648a054f9
+		summarizeBy: none
+		sourceColumn: medication_usage
+
+		annotation SummarizationSetBy = Automatic
+
+	column self_esteem_score
+		dataType: double
+		lineageTag: d1c81a34-77de-4a68-a4eb-5d60cb76b92d
+		summarizeBy: sum
+		sourceColumn: self_esteem_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column mental_health_risk
+		dataType: string
+		lineageTag: 45bad029-6019-4189-842e-7a0d96fc5863
+		summarizeBy: none
+		sourceColumn: mental_health_risk
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_MentalHealthTrends = m
+		mode: import
+		source =
+				let
+				    Source = #"POWER BI PROJECTS",
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "mental_health_trends.csv")),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered Rows", each [Attributes]?[Hidden]? <> true),
+				    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File (2)", each #"Transform File (2)"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File (2)"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File (2)", Table.ColumnNames(#"Transform File (2)"(#"Sample File (2)"))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"user_id", Int64.Type}, {"year", Int64.Type}, {"country", type text}, {"age_group", type text}, {"gender", type text}, {"platform", type text}, {"anxiety_score", type number}, {"depression_score", type number}, {"stress_level", type number}, {"loneliness_index", type number}, {"therapy_access", type logical}, {"medication_usage", type logical}, {"self_esteem_score", type number}, {"mental_health_risk", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

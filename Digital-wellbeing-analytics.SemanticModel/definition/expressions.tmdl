@@ -1,0 +1,90 @@
+expression Parameter1 = #"Sample File" meta [IsParameterQuery=true, BinaryIdentifier=#"Sample File", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: daa300f3-f308-40d8-8da0-52c5103ed487
+	queryGroup: 'Transform File from POWER BI PROJECTS (3)\Helper Queries'
+
+	annotation PBI_ResultType = Binary
+
+expression Parameter2 = #"Sample File (2)" meta [IsParameterQuery=true, BinaryIdentifier=#"Sample File (2)", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 4fd5e241-4563-422c-912c-94a8357fd49a
+	queryGroup: 'Transform File from POWER BI PROJECTS (2)\Helper Queries'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Sample File' =
+		let
+		    Source = #"POWER BI PROJECTS",
+		    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "social_media_usage.csv")),
+		    Navigation1 = #"Filtered Rows"{0}[Content]
+		in
+		    Navigation1
+	lineageTag: f90d391e-bdf8-4aea-a4ce-ad44ec4ffe74
+	queryGroup: 'Transform File from POWER BI PROJECTS (3)\Helper Queries'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transform Sample File' =
+		let
+		    Source = Csv.Document(Parameter1,[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+	lineageTag: 6825f27b-884c-40f6-b285-52125827253f
+	queryGroup: 'Transform File from POWER BI PROJECTS (3)'
+
+	annotation PBI_ResultType = Table
+
+expression 'Transform File' =
+		let
+		    Source = (Parameter1) => let
+		        Source = Csv.Document(Parameter1,[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		        #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		    in
+		        #"Promoted Headers"
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transform Sample File""}" ]
+	lineageTag: 2d50be00-c8f8-4964-acd0-a4d788c707f2
+	queryGroup: 'Transform File from POWER BI PROJECTS (3)\Helper Queries'
+
+	annotation PBI_ResultType = Function
+
+expression 'Sample File (2)' =
+		let
+		    Source = #"POWER BI PROJECTS",
+		    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "mental_health_trends.csv")),
+		    Navigation1 = #"Filtered Rows"{0}[Content]
+		in
+		    Navigation1
+	lineageTag: b3301560-e3fd-481a-9fd1-28a86a3dae00
+	queryGroup: 'Transform File from POWER BI PROJECTS (2)\Helper Queries'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transform Sample File (2)' =
+		let
+		    Source = Csv.Document(Parameter2,[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+	lineageTag: 8d87fbd8-74fa-4605-91a4-5833bd091b6b
+	queryGroup: 'Transform File from POWER BI PROJECTS (2)'
+
+	annotation PBI_ResultType = Table
+
+expression 'Transform File (2)' =
+		let
+		    Source = (Parameter2) => let
+		        Source = Csv.Document(Parameter2,[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		        #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		    in
+		        #"Promoted Headers"
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transform Sample File (2)""}" ]
+	lineageTag: 54605990-ddf5-49c8-afe2-3c3526186787
+	queryGroup: 'Transform File from POWER BI PROJECTS (2)\Helper Queries'
+
+	annotation PBI_ResultType = Function
+

@@ -1,0 +1,146 @@
+table Fact_SocialMediaUsage
+	lineageTag: 25c59847-418a-4ded-bd74-16ca0696dc24
+
+	column 'Source.Name'
+		dataType: string
+		lineageTag: dcec18f3-96d9-4da5-b85b-2b2ed3c87ce2
+		summarizeBy: none
+		sourceColumn: Source.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c6a27d4-8b29-4df7-80c4-ebce03a4896f
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 03975dc5-4bf3-4ce3-aece-d27f36f355ac
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 4b8cd953-5b9f-45bf-9f57-90c984916477
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		lineageTag: b96895d0-f4b4-4cb6-b808-b2cfa3273af2
+		summarizeBy: none
+		sourceColumn: age_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: b96ddabb-f2b3-443b-9004-a94096a0d4c7
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: f2554619-f6bb-4ef9-8ebb-d777f3f16d1b
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column daily_screen_time_hours
+		dataType: double
+		lineageTag: 802f4b6b-fab0-4de3-ab63-2486b883bb0d
+		summarizeBy: sum
+		sourceColumn: daily_screen_time_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column doomscrolling_frequency
+		dataType: double
+		lineageTag: 8b5ff354-e3e8-486a-9b87-38552a55bc3d
+		summarizeBy: sum
+		sourceColumn: doomscrolling_frequency
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column notification_checks_per_day
+		dataType: int64
+		formatString: 0
+		lineageTag: a10056f0-2210-4f5d-a85c-5736e57ac59b
+		summarizeBy: sum
+		sourceColumn: notification_checks_per_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column ai_recommendation_exposure
+		dataType: double
+		lineageTag: e3da4d9e-6a1c-4979-867f-643fe22a8a50
+		summarizeBy: sum
+		sourceColumn: ai_recommendation_exposure
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column productivity_loss_pct
+		dataType: double
+		lineageTag: 4b593add-5002-47f2-bc95-6ff526a9e55b
+		summarizeBy: sum
+		sourceColumn: productivity_loss_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column digital_detox_attempts
+		dataType: int64
+		formatString: 0
+		lineageTag: 69d729ed-5d22-4e8e-8a26-166879d3d99d
+		summarizeBy: sum
+		sourceColumn: digital_detox_attempts
+
+		annotation SummarizationSetBy = Automatic
+
+	column addiction_risk_level
+		dataType: string
+		lineageTag: 7242e821-264e-46b1-bf0f-1a97b8a24db8
+		summarizeBy: none
+		sourceColumn: addiction_risk_level
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_SocialMediaUsage = m
+		mode: import
+		source =
+				let
+				    Source = #"POWER BI PROJECTS",
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "social_media_usage.csv")),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered Rows", each [Attributes]?[Hidden]? <> true),
+				    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File", each #"Transform File"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File", Table.ColumnNames(#"Transform File"(#"Sample File"))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"user_id", Int64.Type}, {"year", Int64.Type}, {"country", type text}, {"age_group", type text}, {"gender", type text}, {"platform", type text}, {"daily_screen_time_hours", type number}, {"doomscrolling_frequency", type number}, {"notification_checks_per_day", Int64.Type}, {"ai_recommendation_exposure", type number}, {"productivity_loss_pct", type number}, {"digital_detox_attempts", Int64.Type}, {"addiction_risk_level", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

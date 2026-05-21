@@ -1,0 +1,81 @@
+table 'POWER BI PROJECTS'
+	lineageTag: 522012ab-88d3-4589-81f2-c89de54f5373
+
+	column Name
+		dataType: string
+		lineageTag: 7b249006-4b96-4b50-90d5-3656d99b4a57
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		lineageTag: db97f168-9460-4985-9a0f-8575a7ddb635
+		summarizeBy: none
+		sourceColumn: Extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date accessed'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: caa51619-7f74-4c1b-80cb-f7892d9a16b5
+		summarizeBy: none
+		sourceColumn: Date accessed
+
+		variation Variation
+			isDefault
+			relationship: 282b7f17-cf6d-4b9f-b6cc-31fce7eb3844
+			defaultHierarchy: LocalDateTable_1facf653-6a23-4a48-9e1d-13dedd0f91ed.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date modified'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 421116ed-7d19-41b6-bfcf-a008ac9301ef
+		summarizeBy: none
+		sourceColumn: Date modified
+
+		variation Variation
+			isDefault
+			relationship: a4fbd170-71f9-4793-9c05-cfdd799d9dd2
+			defaultHierarchy: LocalDateTable_782b239c-8f8a-43fe-9481-3c32498d79ba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date created'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bcef3773-2e38-4794-b387-dca16202efd3
+		summarizeBy: none
+		sourceColumn: Date created
+
+		variation Variation
+			isDefault
+			relationship: 5c27801d-b089-4e2a-9dd5-cdbb9853174f
+			defaultHierarchy: LocalDateTable_255a69b1-9f00-45c1-bf85-c11ae1e9e127.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Path'
+		dataType: string
+		lineageTag: a10f8f45-3224-470f-891c-c374a0159f27
+		summarizeBy: none
+		sourceColumn: Folder Path
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'POWER BI PROJECTS' = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\ambil\Desktop\POWER BI PROJECTS")
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

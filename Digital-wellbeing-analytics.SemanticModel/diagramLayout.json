@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Fact_MentalHealthTrends",
+          "nodeLineageTag": "91f622e2-43f9-4039-a5d0-5de443d2919c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 349,
+            "y": 16
+          },
+          "nodeIndex": "Fact_SocialMediaUsage",
+          "nodeLineageTag": "25c59847-418a-4ded-bd74-16ca0696dc24",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 687,
+            "y": 47
+          },
+          "nodeIndex": "POWER BI PROJECTS",
+          "nodeLineageTag": "522012ab-88d3-4589-81f2-c89de54f5373",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

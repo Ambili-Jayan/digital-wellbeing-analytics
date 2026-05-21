@@ -1,0 +1,21 @@
+relationship 282b7f17-cf6d-4b9f-b6cc-31fce7eb3844
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'POWER BI PROJECTS'.'Date accessed'
+	toColumn: LocalDateTable_1facf653-6a23-4a48-9e1d-13dedd0f91ed.Date
+
+relationship a4fbd170-71f9-4793-9c05-cfdd799d9dd2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'POWER BI PROJECTS'.'Date modified'
+	toColumn: LocalDateTable_782b239c-8f8a-43fe-9481-3c32498d79ba.Date
+
+relationship 5c27801d-b089-4e2a-9dd5-cdbb9853174f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'POWER BI PROJECTS'.'Date created'
+	toColumn: LocalDateTable_255a69b1-9f00-45c1-bf85-c11ae1e9e127.Date
+
+relationship a8e088f0-6ade-5aee-b03e-1143a5faadb9
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Fact_MentalHealthTrends.user_id
+	toColumn: Fact_SocialMediaUsage.user_id
+

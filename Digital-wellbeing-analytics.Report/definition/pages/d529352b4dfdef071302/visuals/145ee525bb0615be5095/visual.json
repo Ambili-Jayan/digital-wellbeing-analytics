@@ -1,0 +1,190 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "145ee525bb0615be5095",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 434.70072270072268,
+    "width": 640.69696069696067,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_MentalHealthTrends"
+                    }
+                  },
+                  "Property": "user_id"
+                }
+              },
+              "queryRef": "Fact_MentalHealthTrends.user_id",
+              "nativeQueryRef": "user_id",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_SocialMediaUsage"
+                        }
+                      },
+                      "Property": "daily_screen_time_hours"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Fact_SocialMediaUsage.daily_screen_time_hours",
+              "nativeQueryRef": "Average of daily_screen_time_hours",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_MentalHealthTrends"
+                        }
+                      },
+                      "Property": "anxiety_score"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Fact_MentalHealthTrends.anxiety_score",
+              "nativeQueryRef": "Average of anxiety_score"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "trend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "displayName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Trend line 1'"
+                }
+              }
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 4,
+                      "Percent": -0.25
+                    }
+                  }
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'solid'"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b5b608866aee490ca370",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_MentalHealthTrends"
+              }
+            },
+            "Property": "user_id"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "57ace6e8f58364aaea34",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_SocialMediaUsage"
+                  }
+                },
+                "Property": "daily_screen_time_hours"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "83085e78b6560aef7a9b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_MentalHealthTrends"
+                  }
+                },
+                "Property": "anxiety_score"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
